@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buget Personal</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script type="module" src="app.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  </head>
+  <body class="bg-gray-900 text-white px-4 py-6 overflow-x-hidden">
+    <h1 class="text-3xl font-bold text-center mb-8">Bugetul Meu</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Stânga: chart -->
+      <div class="bg-gray-800 p-6 rounded-lg shadow w-full">
+        <h2 class="text-xl font-semibold mb-4">Distribuția pe categorii</h2>
+        <div id="donut-chart"></div>
+      </div>
+
+      <!-- Dreapta: formular + sortare -->
+      <div class="bg-gray-800 p-6 rounded-lg shadow w-full">
+        <form id="transaction-form" class="space-y-4">
+          <input id="name" type="text" placeholder="Denumire tranzacție" class="w-full p-2 rounded bg-gray-700 text-white" />
+          <input id="amount" type="number" placeholder="Sumă" class="w-full p-2 rounded bg-gray-700 text-white" />
+          <select id="category-select" class="w-full p-2 rounded bg-gray-700 text-white">
+            <option value="Alimentație">Alimentație</option>
+            <option value="Distracție">Distracție</option>
+            <option value="Nevoi">Nevoi</option>
+            <option value="Dorințe">Dorințe</option>
+            <option value="Sănătate/Educație">Sănătate/Educație</option>
+            <option value="Diverse">Diverse</option>
+            <option value="Economii">Economii</option>
+          </select>
+          <select id="modifier-select" class="w-full p-2 rounded bg-gray-700 text-white">
+            <option value="">Fără modificare</option>
+            <option value="tva">TVA (+20%)</option>
+            <option value="discount">Discount (-10%)</option>
+          </select>
+          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Adaugă</button>
+        </form>
+
+        <div class="mt-6">
+          <label for="sort-select" class="block mb-2 text-sm font-medium">Sortează tranzacțiile</label>
+          <select id="sort-select" class="w-full p-2 rounded bg-gray-700 text-white">
+            <option value="">Fără sortare</option>
+            <option value="amount">După sumă</option>
+            <option value="type">După categorie</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gray-800 p-6 mt-8 rounded-lg shadow w-full">
+      <h2 class="text-xl font-semibold mb-4">Tranzacții</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="text-left border-b border-gray-600">
+            <tr>
+              <th class="py-1">Denumire</th>
+              <th class="py-1">Sumă</th>
+              <th class="py-1">Categorie</th>
+              <th class="py-1">Acțiune</th>
+            </tr>
+          </thead>
+          <tbody id="transaction-table"></tbody>
+        </table>
+      </div>
+      <div class="mt-6 text-right">
+        <button onclick="generateReport()" class="bg-green-600 px-4 py-2 rounded hover:bg-green-700">Generează Raport</button>
+      </div>
+    </div>
+  </body>
+</html>
